@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useAuth } from "@/contexts/AuthContext";
 
 function HomeIcon({ active }: { active: boolean }) {
   const c = active ? "#2C2C2C" : "#999";
@@ -47,7 +48,18 @@ function ProfileIcon({ active }: { active: boolean }) {
   );
 }
 
-const navItems = [
+function AdminIcon({ active }: { active: boolean }) {
+  const c = active ? "#2C2C2C" : "#999";
+  return (
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L3 7v5c0 5.25 3.75 10.15 9 11.25C17.25 22.15 21 17.25 21 12V7L12 2z"
+        stroke={c} strokeWidth="1.5" strokeLinejoin="round" fill={active ? c : "none"} fillOpacity={active ? 0.15 : 0} />
+      <path d="M9 12l2 2 4-4" stroke={c} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+const baseItems = [
   { href: "/", label: "Home", Icon: HomeIcon },
   { href: "/schedule", label: "Schedule", Icon: ScheduleIcon },
   { href: "/map", label: "Map", Icon: MapIcon },
@@ -56,12 +68,19 @@ const navItems = [
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const { profile } = useAuth();
+  const isAdmin = profile?.role === "admin";
+
+  const navItems = isAdmin
+    ? [...baseItems, { href: "/admin", label: "Admin", Icon: AdminIcon }]
+    : baseItems;
+
   return (
     <nav
       className="fixed bottom-0 left-0 right-0 border-t border-[#D5CFC9] z-50"
       style={{ height: "64px", background: "#EAE5DF" }}
     >
-      <div className="flex justify-around items-center h-full px-4">
+      <div className="flex justify-around items-center h-full px-2">
         {navItems.map(({ href, label, Icon }) => {
           const active = href === "/" ? pathname === "/" : pathname.startsWith(href);
           return (
