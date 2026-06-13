@@ -20,7 +20,7 @@ export default function Login() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-6" style={{ background: "#EAE5DF" }}>
       <div className="flex flex-col items-center mb-10">
-        <Monogram size={72} />
+        <Monogram size={130} />
         <h1
           className="text-center text-[#2C2C2C] leading-none mt-3"
           style={{ fontFamily: "var(--font-cormorant)", fontSize: "2.4rem", fontWeight: 300, letterSpacing: "0.08em" }}

@@ -10,7 +10,7 @@ export default function Home() {
     >
       {/* Logo */}
       <div className="flex flex-col items-center pt-4 pb-2">
-        <Monogram size={88} />
+        <Monogram size={120} />
         <h1
           className="text-center text-[#2C2C2C] leading-none mt-3"
           style={{
